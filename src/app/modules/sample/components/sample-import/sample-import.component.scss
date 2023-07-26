@@ -1,0 +1,19 @@
+.fileupload {
+  border: dashed 2px #858585b5;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  cursor: pointer;
+  text-align: center;
+  //border: 2px #d3d1d1 dashed;
+}
+.image-upload {
+  width: 10rem;
+}
+.fileupload.valid {
+  border-color: #00ce00;
+  background: #00ce000d !important;
+}
+.fileupload.in-valid {
+  border-color: #f00;
+  background: #ff00000d !important;
+}

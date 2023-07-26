@@ -1,0 +1,11 @@
+<vss-ui-menu [listMenus]="menus" [contentTpl]="contentTpl" [isCollapsed]="isCollapsed" [isHorizontal]="isHorizontal"
+             (onLogout)="logout()" xmlns=""></vss-ui-menu>
+<ng-template #contentTpl>
+  <nz-layout class="vh-100">
+    <div>
+      <nz-content>
+        <vss-ui-tab-group [dataTabSelectors]="dataTabSelector"></vss-ui-tab-group>
+      </nz-content>
+    </div>
+  </nz-layout>
+</ng-template>

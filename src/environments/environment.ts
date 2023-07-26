@@ -3,7 +3,19 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  keycloak: {
+    url: "http://10.30.1.4:9080/auth/",
+    realm: "SSO_VCM",
+    clientId: "frontend-ticket",
+    // url: "http://10.60.98.93:9080/auth/",
+    // realm: "viettel-vss",
+    // clientId: "VBOM"
+  },
+  apiUrl: '',
+  config: {
+    isHorizontalMenu: false,
+  }
 };
 
 /*

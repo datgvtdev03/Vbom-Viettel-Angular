@@ -1,18 +1,104 @@
-import { NgModule } from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NZ_I18N } from 'ng-zorro-antd/i18n';
+import { vi_VN } from 'ng-zorro-antd/i18n';
+import { registerLocaleData } from '@angular/common';
+import vi from '@angular/common/locales/vi';
+import { FormsModule } from '@angular/forms';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { IconsProviderModule } from './icons-provider.module';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
+import {LayoutFullComponent} from './layout/layout-full/layout-full.component';
+import {LayoutBlankComponent} from './layout/layout-blank/layout-blank.component';
+import {
+  AuthInterceptor,
+  ErrorInterceptor,
+  MenuModule,
+  TabGroupModule, TableModule,
+  VssApiService,
+  VssUiConfig, VssUiModule
+} from '@viettel-vss-base/vss-ui';
+import {KeycloakService} from 'keycloak-angular';
+import {environment} from '../environments/environment';
+import {NzModalService} from 'ng-zorro-antd/modal';
+registerLocaleData(vi);
 
+function initializeKeycloak(keycloak: KeycloakService): () => Promise<any> {
+  return (): Promise<any> => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        await keycloak.init({
+          config: {
+            url: environment.keycloak.url,
+            realm: environment.keycloak.realm,
+            clientId: environment.keycloak.clientId,
+          },
+          loadUserProfileAtStartUp: false,
+          initOptions: {
+            onLoad: 'login-required',
+            checkLoginIframe: true
+          },
+          bearerExcludedUrls: [
+          ],
+        });
+        resolve(true);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
+}
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LayoutFullComponent,
+    LayoutBlankComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    IconsProviderModule,
+    NzLayoutModule,
+    NzMenuModule,
+    MenuModule,
+    TableModule,
+    TabGroupModule
   ],
-  providers: [],
+  providers: [
+    KeycloakService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeKeycloak,
+      deps: [KeycloakService],
+      multi: true,
+    },
+    { provide: NZ_I18N, useValue: vi_VN },
+    // {
+    //   provide: VssUiConfig,
+    //   useClass: ExtentApi,
+    //   deps: [TestService, OptionService]
+    // },
+    // {
+    //   provide: VssApiService,
+    //   useClass: BaseService,
+    //   deps: [HttpClient]
+    // },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
+    },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    NzModalService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

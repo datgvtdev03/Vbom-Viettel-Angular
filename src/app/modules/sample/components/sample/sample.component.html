@@ -1,0 +1,81 @@
+<nz-card class="mb-3">
+  <vbom-samp-header-filter [filterFields]="fieldFilterHead" (onSearch)="onSearchManual($event)"></vbom-samp-header-filter>
+</nz-card>
+
+<div nz-row nzJustify="end" class="action-table">
+  <div>
+    <button
+      nz-button
+      nzGhost
+      class="me-2"
+      nzType="primary"
+      type="button"
+      (click)="deleteItems()"
+      *ruleAuthorized="roleDelete"
+    >
+      <span nz-icon nzType="delete" nzTheme="outline"></span>Xóa</button>
+  </div>
+  <div>
+    <button
+      nz-button
+      class="me-2"
+      nzType="primary"
+      type="button"
+      (click)="addItem()"
+      *ruleAuthorized="roleAdd"
+    >
+      <span nz-icon nzType="plus" nzTheme="outline"></span>Thêm mới</button>
+  </div>
+  <div>
+    <button
+      [nzLoading]="exporting"
+      [disabled]="exporting"
+      nz-button
+      nzGhost
+      nzType="primary"
+      type="button"
+      (click)="dowloadFile()"
+      *ruleAuthorized="roleExport"
+    >
+      <span nz-icon nzType="upload" nzTheme="outline"></span> Xuất file
+    </button>
+  </div>
+  <div>
+    <button
+      nz-button
+      nzGhost
+      nzType="primary"
+      type="button"
+      (click)="importFile()"
+      *ruleAuthorized="roleImport"
+    >
+      <span nz-icon nzType="download" nzTheme="outline"></span> Nhập file
+    </button>
+  </div>
+</div>
+
+<vss-ui-table
+  [settingValue]="settingValue"
+  [columns]="col"
+  [listOfData]="listOfData"
+  (onFilterData)="onFilterInTable($event)"
+  (itemSelected)="getSelectedData($event)"
+  (itemUnSelected)="getUnSelectedData($event)"
+  (onEditItem)="viewDetail($event, true)"
+  [loadingDataTable]="false"
+  (onViewItem)="isShowUpdate ? viewDetail($event, true) : viewDetail($event, false)"
+  [scrollY]="'1450px'"
+  (onRemove)="deleteItem($event)"
+  [scrollX]="'1600px'"
+  [isFilter]="true"
+  [tableName]="nameRole"
+  [ruleAdd]="roleAdd"
+  [ruleDelete]="roleDelete"
+  ></vss-ui-table>
+<vss-ui-pagination
+  [totalItem]="paging.totalElements"
+  [pageSize]="paging.pageSize"
+  [currentPage]="paging.pageIndex"
+  (onPageIndexChange)="getChangePagination($event)"
+  (onPageSizeChange)="onPageSizeChange($event)"
+></vss-ui-pagination>

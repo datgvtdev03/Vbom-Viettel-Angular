@@ -1,5 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": "aaeff09a-88b7-461c-adbd-eff2a9bfc5ac"
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -47,9 +50,17 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                "output": "/assets/"
+              }
             ],
             "styles": [
+              "src/theme.less",
+              "node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
+              "node_modules/@viettel-vss-base/vss-ui/src/styles.scss",
               "src/styles.scss"
             ],
             "scripts": []
