@@ -1,0 +1,47 @@
+<div class="col-md-12">
+  <div
+    class="fileupload"
+    [class.valid]="!!fileObj?.item"
+    [class.in-valid]="!!msg"
+    vssDragDropFileUpload
+    (click)="fileField.click()"
+    (fileDropped)="onSelectFile($event)"
+  >
+    <div>
+<!--      <img class="image-review" [src]="fileObj?.url ? sanitize(fileObj.url) : '/assets/icons/icon-upload.png'" alt="" />-->
+      <img class="image-upload" [src]="'/assets/icons/icon-upload.png'" alt="" />
+    </div>
+    <p *ngIf="fileObj?.item">{{fileObj?.item?.extension}}{{ fileObj?.item?.name }}</p>
+    <p class="ddinfo" *ngIf="!fileObj?.item">Choose a file or drag here</p>
+    <p class="message text-danger" *ngIf="msg">{{ msg }}</p>
+    <input
+      type="file"
+      name="avatars"
+      #fileField
+      (change)="onSelectFile($any($event).target.files)"
+      hidden
+    />
+  </div>
+<!--  <vss-ui-vss-drag-drop-upload-file></vss-ui-vss-drag-drop-upload-file>-->
+</div>
+
+<div nz-row nzJustify="center" class="mt-4">
+  <div>
+    <button
+      nz-button
+      class="me-2"
+      type="button"
+      (click)="dismiss()"
+    >Hủy</button>
+  </div>
+  <div>
+    <button
+      nz-button
+      nzType="primary"
+      type="button"
+      (click)="upload()"
+    >
+      Import
+    </button>
+  </div>
+</div>

@@ -1,0 +1,94 @@
+<legend>Thông tin tìm kiếm</legend>
+<form [formGroup]="myForm" novalidate>
+  <div class="row">
+    <ng-container *ngFor="let field of filterFields">
+      <div class="col-md-6 col-xl-6 ">
+        <nz-form-item class="mb-2">
+          <nz-form-label [nzSpan]="8" class="text-start">{{field.label}} <span *ngIf="field.required" class="text-danger">*</span></nz-form-label>
+          <ng-container [ngSwitch]="field.type">
+            <nz-form-control [nzSpan]="16">
+              <ng-container *ngSwitchCase="filterFieldType.CHECKBOX">
+                <label
+                  nz-checkbox [formControlName]="field.field"
+                  [nzDisabled]="field.disable">
+                </label>
+              </ng-container>
+              <ng-container *ngSwitchCase="filterFieldType.INPUT_NUMBER">
+                <input
+                  inputNumber class="w-100" nz-input type="text" vssUiAutoCplControl
+                  [vssUiAutocomplete]="field.field"
+                  [disabledAutoComplete]="!!field?.disableAutocomplete"
+                  [formControlName]="field.field"
+                  [maxlength]="field?.maxLength || 4000"
+                  [placeholder]="field.placeholder || field.label"
+                  (keyup.enter)="filterOnPress; search()"
+                >
+              </ng-container>
+              <ng-container *ngSwitchCase="colDateTypes.includes(field.type) ? field.type : -1">
+                <vss-ui-date-picker
+                  dateFormat
+                  [formControlName]="field.field"
+                  [csShowToday]="true"
+                  [csRangePicker]="filterFieldType.DATE_RANGE_PICKER == field.type || filterFieldType.DATE_TIME_RANGE_PICKER == field.type"
+                  [csShowTime]="filterFieldType.DATE_TIME_RANGE_PICKER == field.type || filterFieldType.DATE_TIME_PICKER == field.type"
+                ></vss-ui-date-picker>
+              </ng-container>
+              <ng-container
+                *ngSwitchCase="field.type == filterFieldType.SELECT">
+                <vss-ui-select-box #csSelectScrollComponent
+                                   [formControlName]="field.field"
+                                   [optionList]="field.options || []" [getOptionsApi]="field.apiSearch!"
+                                   [keySearch]="field.keySearch ||'keyword'" addressSelector
+                                   [asType]="field.addressSelectorType!"
+                                   [asReferenceId]="field.referenceColName ? myForm.get(field.referenceColName!)?.value : null"
+                                   vssUiSelectDir
+                                   [selectOptionsType]="field.selectOptionsType!"
+                                   [csMaxTagCount]="field.csMaxTagCount!"
+                                   [params]="field.params!" (onClose)="null"
+                                   (ngModelChange)="null"
+                                   [csMode]="field.multiple ? 'multiple' : 'default'" fieldId="userName"
+                                   [csPlaceHolder]="field.placeholder || field.label"
+                                   [csAllowClear]="field.csAllowClear !== undefined ? field.csAllowClear! : true"
+                                   [csDropdownMatchSelectWidth]="true"></vss-ui-select-box>
+              </ng-container>
+              <ng-container *ngSwitchCase="filterFieldType.TEXTAREA">
+                    <textarea
+                      rows="4" nz-input
+                      [formControlName]="field.field"
+                      [placeholder]="field.placeholder || field.label" [attr.maxlength]="field.maxLength || MAX_LENGTH_TEXT"
+                      #inputTextareaRef
+                      (keyup)="filterOnPress; search()"
+                    ></textarea>
+              </ng-container>
+              <ng-container *ngSwitchCase="filterFieldType.RANGE_NUMBER">
+                <vss-ui-range-number [minValue]="field.minValue || 0" [maxValue]="field.maxValue || 100"
+                  [suffix]="field.suffix || ''" [classes]="'text-right'"
+                  [formControlName]="field.field"></vss-ui-range-number>
+              </ng-container>
+              <ng-container *ngSwitchDefault>
+                <input
+                  type="text" ng-trim="true" nz-input
+                  [formControlName]="field.field"
+                  [placeholder]="field.placeholder || field.label" [attr.maxlength]="MAX_LENGTH_TEXT"
+                  vssUiAutoCplControl [vssUiAutocomplete]="field.field" #inputDefaultRef
+                  (keyup.enter)="filterOnPress; search()"/>
+              </ng-container>
+            </nz-form-control>
+          </ng-container>
+        </nz-form-item>
+      </div>
+    </ng-container>
+    <div class="col-12">
+      <div class="text-end">
+        <button nz-button class="me-3" nzType="primary" type="button" (click)="refreshForm()"> <i nz-icon nzType="undo"
+                                                                                                  nzTheme="outline" aria-hidden="true"></i> Làm mới</button>
+        <button nz-button nzType="primary" type="button" (click)="search()"> <i nz-icon nzType="search"
+                                                                                nzTheme="outline" aria-hidden="true"></i> Tìm kiếm</button>
+      </div>
+    </div>
+  </div>
+</form>
+
+<ng-template #errors let-control>
+  <render-errors [data]="control"></render-errors>
+</ng-template>
