@@ -24,8 +24,8 @@ import {
   VssUiConfig, VssUiModule
 } from '@viettel-vss-base/vss-ui';
 import {KeycloakService} from 'keycloak-angular';
-import {environment} from '../environments/environment';
 import {NzModalService} from 'ng-zorro-antd/modal';
+import {environment} from '@vbomEnv/environment';
 registerLocaleData(vi);
 
 function initializeKeycloak(keycloak: KeycloakService): () => Promise<any> {

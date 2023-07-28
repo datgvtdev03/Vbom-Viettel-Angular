@@ -11,3 +11,5 @@ Run `npm config set @viettel-vss-base:registry=https://10.60.98.103/api/v4/proje
 Run `npm config set -- //10.60.98.103/api/v4/projects/525/packages/npm/:_authToken=_your-gitlab_access_token_`
  
 Run `npm install`
+
+### [Generate access token gitlab at here](https://gitlab.viettel-softwareservices.vn/-/profile/personal_access_tokens)
