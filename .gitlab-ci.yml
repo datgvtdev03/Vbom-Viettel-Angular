@@ -1,0 +1,99 @@
+services:
+  - name: docker:dind
+    command: ["--insecure-registry=10.60.98.103:8088"]
+
+stages:
+  - build
+  - build-image
+  - deploy
+  - analytics-sonarqube
+  # - deploy
+image: docker:dind
+
+variables:
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_TLS_CERTDIR: ""
+  DOCKER_DRIVER: overlay2
+  REMOTE_REGISTRY_URL: "${REMOTE_REGISTRY}"
+before_script:
+  # - docker version
+  - echo ${CI_COMMIT_REF_NAME}
+  - echo ${REMOTE_REGISTRY}
+  - echo  $CI_COMMIT_REF_SLUG
+
+build:
+  image: node:14.15.5
+  stage: build
+  # hoặc là master hoặc là tags
+  only:
+    - tags
+  script:
+    - cp src/environments/environment.sample.ts src/environments/environment.ts
+    - cd  src/environments
+    - ls
+    - npm i
+    - npm run build:prod
+  cache:
+   paths:
+   - node_modules
+  artifacts:
+    paths:
+    - dist
+    expire_in: 1 hours
+build-image:
+  image: docker:dind
+  stage: build-image
+  # hoặc là master hoặc là tags
+  only:
+    - tags
+  script:
+    - ls
+    - docker login ${REMOTE_REGISTRY} -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
+    # - docker pull ${REMOTE_REGISTRY}:dev || true
+    - docker build --tag ${REMOTE_REGISTRY}:dev .
+    # - docker build --no-cache  --tag ${REMOTE_REGISTRY}:dev .
+    # - docker push ${REMOTE_REGISTRY}:${CI_COMMIT_REF_NAME}-$CI_COMMIT_SHA
+    - docker push ${REMOTE_REGISTRY}:dev
+  artifacts:
+    expire_in: 1 hours
+    paths:
+    - dist
+deploy:
+  stage: deploy
+  variables:
+    GIT_STRATEGY: none
+  only:
+    - tags
+  before_script:
+    - apk update && apk add openssh-client bash
+    - echo $SSH_SERVER_IP
+    - echo $SSH_USER@$SSH_SERVER_IP -p $SSH_PORT
+  script:
+    # chạy ssh-agent tương ứng với Gitlab Runner hiện tại
+    - eval $(ssh-agent -s)
+    # thêm nội dung của biến SSH_PRIVATE_KEY vào agent store
+#    - bash -c 'ssh-add <(echo "$SSH_PRIVATE_KEY" | base64 -d)'
+    - bash -c 'ssh-add <(echo "$SSH_PRIVATE_KEY")'
+    - mkdir -p ~/.ssh && touch ~/.ssh/known_hosts
+    - ssh-keyscan -p $SSH_PORT  $SSH_SERVER_IP >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+    # - scp -P $SSH_PORT docker-compose.yml $SSH_USER@$SSH_SERVER_IP:/home/$SSH_USER
+    # Thực hiện SSH vào server, login vào Registry, chuyển tới folder project
+    # Down project, pull image về, up project và xoá đi image cũ
+    - >
+      ssh -t -t $SSH_USER@$SSH_SERVER_IP -p $SSH_PORT
+      "docker login  ${REMOTE_REGISTRY} -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD;
+      docker pull ${REMOTE_REGISTRY}:dev;
+      docker stop crm-web-service;
+      docker rm crm-web-service;
+      docker run -d --log-opt max-size=10m --log-opt max-file=2 -p 8085:80 --name crm-web-service ${REMOTE_REGISTRY}:dev;"
+analytics-sonarqube-job:
+  stage: analytics-sonarqube
+  image:
+    name: sonarsource/sonar-scanner-cli:latest
+    entrypoint: [""]
+  script:
+    - sonar-scanner -Dsonar.qualitygate.wait=true -Dsonar.login=$SONAR_LOGIN  -Dsonar.projectKey=$SONAR_PROJECT_KEY  -Dsonar.host.url=$SONAR_HOST_URL
+  allow_failure: true
+  only:
+    - schedules
