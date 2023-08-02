@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col-12 mb-2">
+      <div class="text-end">
+        <button nz-button nzType="primary" *ruleAuthorized="['ROLE_USER_DATA_SAVE']" class="fix_mb1" type="button" (click)="addNew()">
+          <i nz-icon nzType="plus-circle" nzTheme="outline" aria-hidden="true"></i>Thêm mới
+        </button>
+      </div>
+    </div>
+    <div class="col-12 mb-2">
+      <nz-card style="overflow-y: unset; max-height:380px; min-height: 380px;">
+        <p><strong>Danh sách người dùng</strong></p>
+        <!-- *ruleAuthorized="['ROLE_USER_SEARCH']" -->
+        <vss-ui-table *ruleAuthorized="['ROLE_USER_VIEW']" [columns]="col" [isFilter]="true" [isShowSetting]="false" (onViewItem)="editUser($event)" [autoSelect]="true"
+                           (onFilterData)="onFilterInTable($event)"   [loadingDataTable]="loadingTable"  [scrollY]="'200px'"
+          [listOfData]="listOfData" (onClickItem)="viewStoreByUser($event)" (onEditItem)="editUser($event)" (onRemove)="deleteUserPermission($event)" >
+          <!-- [currentItem]="currentUser" -->
+        </vss-ui-table>
+          <vss-ui-pagination [pageSize]="paging.pageSize" (onPageSizeChange)="onPageSizeChange($event)" (onPageIndexChange)="onPageIndexChange($event)" [totalItem]="paging.totalElements"
+          [isShowSizeChanger] = "true" [currentPage]="paging.pageIndex" [pageSizeOptions]="pageSizeOptions"></vss-ui-pagination>
+        </nz-card>
+    </div>
+  <div class="col-6">
+    <nz-card style="overflow-y: unset; max-height:380px; min-height: 380px;">
+      <p><strong>Danh sách kho</strong></p>
+      <!-- *ruleAuthorized="['ROLE_STORE_BY_USER_VIEW']" -->
+      <vss-ui-table *ruleAuthorized="['ROLE_USER_STORE_VIEW']" [columns]="col2" [isFilter]="true" [settingValue]="settingValue" [autoSelect]="true"
+        [listOfData]="listOfStore" [isShowSetting]="false" (onClickItem)="viewEmployeeByStore($event)" [scrollX]="'400px'" [pagingOptions] ="pageSizeOptions"
+        [scrollY]="'200px'" [checkPermissionData]="checkPermissionData" ></vss-ui-table>
+    </nz-card>
+  </div>
+  <div class="col-6">
+    <nz-card style="overflow-y: unset; max-height:380px; min-height: 380px;">
+      <p><strong>Danh sách người dùng thuộc kho</strong></p>
+      <!-- *ruleAuthorized="['ROLE_USER_STORE_FOLLOWER_VIEW']"  -->
+      <vss-ui-table *ruleAuthorized="['ROLE_USER_STORE_VIEW_ERP']" [columns]="col3" [isFilter]="true"
+        [listOfData]="listOfEmployee" [isShowSetting]="false" [settingValue]="settingValue" [scrollX]="'400px'" [pagingOptions] ="pageSizeOptions"
+        [scrollY]="'200px'" [checkPermissionData]="checkPermissionData"></vss-ui-table>
+    </nz-card>
+  </div>
+</div>
+

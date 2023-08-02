@@ -1,0 +1,30 @@
+<div>
+    <nz-card>
+        <div class="row">
+            <div class="col-md-12 col-xl-12 d-flex justify-content-between">
+                <div><strong>Danh sách truy cập</strong></div>
+              <div>
+                <div class="text-end">
+                <button nz-button nzType="default" class="button-history mb-2 me-3" style="top: 4px" type="button" (click)="clickExcel()">
+                  <img src="/assets/icons/download.svg" alt="export_icon" style="width: 16px; margin-right: 5px;" >
+                  Xuất file
+                </button>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+                <vss-ui-table [settingValue]="settingValue"
+                                   style="max-height: calc(100vh - 250px); min-height: calc(100vh - 250px); overflow-y: auto;"
+                                   (onFilterData)="onFilterInTable($event)"   [loadingDataTable]="loadingTable"
+                                   [columns]="col" [listOfData]="listOfData"
+                                    [scrollY]="'400px'"
+                                    [scrollX]="'1600px'"
+                                   [isFilter]="true"
+                                   [isShowSetting]="true" [selectData]="listOfData[0]?.id || null"></vss-ui-table>
+                <vss-ui-pagination [totalItem]="paging.totalElements" [pageSize]="paging.pageSize"
+                    [currentPage]="paging.pageIndex" (onPageIndexChange)="getChangePagination($event)" (onPageSizeChange)="onPageSizeChange($event)"></vss-ui-pagination>
+            </div>
+        </div>
+    </nz-card>
+</div>
+

@@ -1,0 +1,18 @@
+<div>
+  <nz-card>
+    <div class="row">
+      <div class="col-md-12 col-xl-12 d-flex justify-content-between mb-3">
+        <div><strong>Danh sách người dùng</strong></div>
+      </div>
+      <div class="col-12">
+        <vss-ui-table [settingValue]="settingValue" [columns]="col" [listOfData]="listOfData" (onViewItem)="editUser($event)"
+                           (onEditItem)="editUser($event)" (onFilterData)="onFilterInTable($event)" [loadingDataTable]="loadingTable"
+                           [isFilter]="true"></vss-ui-table>
+        <vss-ui-pagination [totalItem]="paging.totalElements" [pageSize]="paging.pageSize"
+                       [currentPage]="paging.pageIndex"
+                       (onPageIndexChange)="onPageIndexChange($event);"
+                       (onPageSizeChange)="onPageSizeChange($event)"></vss-ui-pagination>
+      </div>
+    </div>
+  </nz-card>
+</div>

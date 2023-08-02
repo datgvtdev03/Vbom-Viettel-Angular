@@ -1,0 +1,38 @@
+
+.full-height-block {
+  max-height: calc(100vh - 120px);
+  min-height: calc(100vh - 120px)
+}
+
+@media (max-width: 1367px) {
+  .css_flex{
+    display: unset;
+  }
+  .fix_text{
+    text-align: end;
+    padding-bottom: 0.5rem;
+  }
+}
+
+@media (min-width: 1367px) {
+  .css_flex{
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 1000px) {
+  .css_flex{
+    display: unset;
+    justify-content: unset;
+  }
+
+  .fix_mb1{
+    margin-bottom: 1rem;
+  }
+}
+
+.list-menu-delete {
+  max-height: calc(100vh - 300px);
+  overflow: auto;
+}

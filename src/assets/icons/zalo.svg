@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <clipPath id="clip-path-zalo">
+      <rect id="Rectangle_12773" data-name="Rectangle 12773" width="24" height="24" transform="translate(114 332)" fill="#667085"/>
+    </clipPath>
+  </defs>
+  <g id="Group_23483" data-name="Group 23483" transform="translate(-17 -228)">
+    <g id="Mask_Group_19815" data-name="Mask Group 19815" transform="translate(-97 -104)" clip-path="url(#clip-path-zalo)">
+      <g id="facebook" transform="translate(112.605 330.604)">
+        <path id="Path_65973" data-name="Path 65973" d="M16.744,25.4h-6.7c-6.061,0-8.651-2.59-8.651-8.651v-6.7C1.4,3.985,3.985,1.4,10.047,1.4h6.7c6.061,0,8.651,2.59,8.651,8.651v6.7C25.4,22.806,22.806,25.4,16.744,25.4ZM10.047,3.07C4.9,3.07,3.07,4.9,3.07,10.047v6.7c0,5.146,1.831,6.977,6.977,6.977h6.7c5.146,0,6.977-1.831,6.977-6.977v-6.7c0-5.146-1.831-6.977-6.977-6.977Z" fill="#667085" stroke="#fff" stroke-width="0.4"/>
+      </g>
+    </g>
+    <g id="Group_23432" data-name="Group 23432" transform="translate(-42.014 234)">
+      <g id="Group_23431" data-name="Group 23431" transform="translate(65.986)">
+        <g id="Group_23430" data-name="Group 23430">
+          <path id="Path_65970" data-name="Path 65970" d="M74.453,13.548h-6.88a1.588,1.588,0,0,1-1.323-2.465L71.5,3.175H67.574a1.588,1.588,0,1,1,0-3.175h6.88a1.588,1.588,0,0,1,1.323,2.465l-5.245,7.907h3.922a1.588,1.588,0,0,1,0,3.175ZM67.574.794a.794.794,0,1,0,0,1.588h4.661A.4.4,0,0,1,72.566,3l-5.653,8.524a.794.794,0,0,0,.662,1.233h6.88a.794.794,0,0,0,0-1.588H69.792a.4.4,0,0,1-.331-.616l5.653-8.524A.794.794,0,0,0,74.453.794Z" transform="translate(-65.986)" fill="#667085" stroke="#667085" stroke-width="0.3"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

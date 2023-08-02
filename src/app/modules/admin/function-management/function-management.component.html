@@ -1,0 +1,59 @@
+<div class="row">
+    <div class="col-xl-4 col-md-5 mb-2">
+        <nz-card class="full-height-block"  style="overflow-y: auto">
+            <div class="css_flex mb-4">
+
+                <h6><i class="fa fa-user me-1" aria-hidden="true"></i>Phân hệ/ Chức năng</h6>
+                <div class="fix_text" *ruleAuthorized="['ROLE_MODULE_SAVE', 'ROLE_MENU_DELETE']">
+                  <button nz-button *ruleAuthorized="['ROLE_MENU_DELETE']" class="fix_mb1 mx-2 colorBtn" type="button" (click)="deleteMultipleMenus()">
+                    <i nz-icon nzType="close-circle" nzTheme="outline" aria-hidden="true"></i>Xóa
+                  </button>
+                    <button nz-button nzType="primary" *ruleAuthorized="['ROLE_MODULE_SAVE']" class="fix_mb1" type="button" (click)="openModal()">
+                      <i nz-icon nzType="plus-circle" nzTheme="outline" aria-hidden="true"></i>Thêm mới
+                    </button>
+                </div>
+            </div>
+            <vss-ui-tree [nodes]="nodes" [csCheckable]="true" *ruleAuthorized="['ROLE_MODULE_VIEW']" (onClick)="loadFunction($event)"
+                      (onChecked)="onCheckNode($event)" [csCheckedKeys]="checkedNodes?.keys || []" [checkFunctionManagement]="true"
+                (onUpdateNode)="onUpdateNode($event)" (onDeleteNode)="onDeleteNode($event)">
+            </vss-ui-tree>
+        </nz-card>
+    </div>
+    <div class="col-xl-8 col-md-7">
+        <nz-card class="full-height-block">
+            <div class="row" *ruleAuthorized="['ROLE_FUNCTION_VIEW']">
+                <div class="col-12 d-flex justify-content-between">
+                    <div><h6>Danh sách tính năng</h6></div>
+                    <div>
+                      <button *ngIf="choseFunction?.isMenu" nz-button class="mx-3 mb-1" [nzType]="'primary'" type="button"
+                      (click)="openModelAdd()"><i nz-icon nzType="plus-circle" nzTheme="outline" aria-hidden="true"></i>Thêm tính năng</button>
+                      <button nz-button class="mb-1 colorBtn" [nzType]="'default'" type="button"
+                        (click)="openPopupDelete()"><i nz-icon nzType="close-circle" nzTheme="outline" aria-hidden="true"></i>Xoá</button>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <vss-ui-table [isFilter]="true" [settingValue]="settingValue" [columns]="col" [scrollY]="'53vh'" [loadingDataTable]="loadingTable"
+                        (onEditItem)="editRowData($event)" (onRemove)="deleteFunction($event)" [listOfData]="functionList"
+                        (itemSelected)="getItemSelected($event)" (itemUnSelected)="getItemUnSelected($event)" [checkFunctionManagement]="checkFunctionManagement">
+                    </vss-ui-table>
+                </div>
+            </div>
+        </nz-card>
+    </div>
+    <div class="col-12">
+        <nz-form-item class="mb-1">
+            <nz-form-control class="me-2">
+                <vss-ui-checkbox [controlValue]="isCheckedAll" (csChange)="showFunctions($event)"></vss-ui-checkbox> <span
+                    class="ms-2">Hiển thị danh sách
+                    chức năng trong các phân hệ</span>
+            </nz-form-control>
+        </nz-form-item>
+    </div>
+</div>
+
+<vss-ui-notification-popup [isOpenModal]="openModalDelete ? openModalDelete : openModalDeleteMenus"
+(onCloseModal)="openModalDelete = false; openModalDeleteMenus = false" [isWarning]="true"
+[messageNotification]="openModalDelete ? 'Bạn có chắc chắn muốn xóa dữ liệu không?' : ''"
+[isCheckFunctionMangement]="!openModalDelete" (itemDeleteOk)="deleteOk($event)"
+[checkedNodes]='checkedNodes' [menus]='menus' [checkedModules]="checkedModules"></vss-ui-notification-popup>
+

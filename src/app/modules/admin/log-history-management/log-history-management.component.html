@@ -1,0 +1,28 @@
+<div>
+    <nz-card>
+        <div class="row mb-2">
+            <div class="col-md-12">
+                <legend> Danh sách log dữ liệu</legend>
+            </div>
+            <div class="col-md-6 col-xxl-4">
+                <nz-form-item class="align-items-baseline mb-0">
+                    <nz-form-label>Lịch sử</nz-form-label>
+                    <nz-form-control>
+                        <cs-select [csOption]="tableLog" [(ngModel)]="screen" [csAllowClear]="false"
+                            (ngModelChange)="getScreen()"></cs-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <vss-ui-table [settingValue]="settingValue" [columns]="col" [listOfData]="listOfData"
+            [selectData]="listOfData[0]?.id || null" (onFilterData)="onFilterInTable($event)" (onSelectLinkItem)="downloadFile($event)"
+            [loadingDataTable]="loadingTable" [setFilter]="defaultFilter" [scrollX]="'1600px'" [scrollY]="'calc(100vh - 320px)'" [isFilter]="true"
+            [isShowSetting]="true">
+        </vss-ui-table>
+        <vss-ui-pagination [totalItem]="paging.totalElements" [pageSize]="paging.pageSize" [isShowSizeChanger]="true"
+            [currentPage]="paging.pageIndex" (onPageIndexChange)="onPageIndexChange($event)"
+            (onPageSizeChange)="onPageSizeChange($event)">
+        </vss-ui-pagination>
+
+    </nz-card>
+</div>

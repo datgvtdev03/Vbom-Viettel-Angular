@@ -1,0 +1,26 @@
+:host ::ng-deep .ant-table-tbody {
+    // height: 360px;
+}
+:host ::ng-deep .td-wrapper{
+  // height: 40px;
+}
+
+@media (max-width: 1367px) {
+  .fix_height{
+      max-height: 350px; 
+      min-height: 350px;
+      // overflow-y: auto;
+  }
+}
+
+@media (min-width: 1367px) {
+  .fix_height{
+      max-height: 550px; 
+      min-height: 350px;
+      // overflow-y: auto;
+  }
+}
+
+::ng-deep .ant-modal-body{
+  overflow: auto;
+}

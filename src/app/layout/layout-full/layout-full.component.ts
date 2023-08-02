@@ -1,10 +1,34 @@
 import { Component, OnInit } from '@angular/core';
-import {environment} from '../../../environments/environment';
-import {PermissionService, VssAuthService, VssUiTabModel} from '@viettel-vss-base/vss-ui';
+import {
+  VssAuthService,
+  VssUiBaseNavModel,
+  VssUiTabModel
+} from '@viettel-vss-base/vss-ui';
 import {AuthService} from '../../service/auth.service';
 import {DashboardComponent} from '../../modules/dashboard/components/dashboard/dashboard.component';
 import {UsersComponent} from '../../modules/users/components/users/users.component';
 import {SampleComponent} from '@vbomApp/modules/sample/components/sample/sample.component';
+import {AdminService} from '@vbomApp/service/admin.service';
+import {ResponseCode} from '@vbomApp/modules/shares/enum/common.enum';
+import {environment} from '@vbomEnv/environment';
+import {VbomPermissionServiceService} from '@vbomApp/service/vbom-permission-service.service';
+import {
+  LogHistoryManagementComponent
+} from '@vbomApp/modules/admin/log-history-management/log-history-management.component';
+import {VssUiNavModel} from '@viettel-vss-base/vss-ui/vss-ui/modules/menu/menu.model';
+import {
+  AccessLogManagementComponent
+} from '@vbomApp/modules/admin/access-log-management/access-log-management.component';
+import {UserManagementComponent} from '@vbomApp/modules/admin/user-management/user-management.component';
+import {UserListComponent} from '@vbomApp/modules/admin/user-management/user-list/user-list.component';
+import {
+  ParamConfigManagementComponent
+} from '@vbomApp/modules/admin/param-config-management/param-config-management.component';
+import {
+  PermissionDataManagementComponent
+} from '@vbomApp/modules/admin/permission-data-management/permission-data-management.component';
+import {FunctionManagementComponent} from '@vbomApp/modules/admin/function-management/function-management.component';
+import {FunctionListComponent} from '@vbomApp/modules/admin/function-management/function-list/function-list.component';
 
 @Component({
   selector: 'vbom-layout-full',
@@ -14,7 +38,8 @@ import {SampleComponent} from '@vbomApp/modules/sample/components/sample/sample.
 export class LayoutFullComponent implements OnInit {
   isHorizontal = environment.config.isHorizontalMenu;
   isCollapsed= true;
-  menus = [
+  menusPermission: VssUiBaseNavModel[] = []
+  menus: VssUiNavModel[] = [
     {
       "icon": "fa-tachometer",
       "children": [],
@@ -26,7 +51,7 @@ export class LayoutFullComponent implements OnInit {
     {
       "icon": "fa-users",
       "children": [],
-      "id": "1",
+      "id": "2",
       "level": 1,
       "title": "User",
       "url": "/users",
@@ -34,7 +59,7 @@ export class LayoutFullComponent implements OnInit {
     {
       "icon": "fa-bars",
       "children": [],
-      "id": "1",
+      "id": "3",
       "level": 1,
       "title": "Sample",
       "url": "/sample",
@@ -42,38 +67,49 @@ export class LayoutFullComponent implements OnInit {
   ]
   dataTabSelector: VssUiTabModel[] = []
 
-  constructor(private vssAuthService: VssAuthService, private apiService: AuthService, private permission: PermissionService) {
-    this.dataTabSelector = this.menus?.map(s => {
-      let selector = null;
-      switch(s.url) {
-        case '/sample':
-          selector = SampleComponent;
-          break;
-        case '/users':
-          selector = UsersComponent;
-          break;
-        default:
-          selector = DashboardComponent;
-          break;
-      }
-      return {...s, selector: selector};
-    });
+  constructor(
+      private vssAuthService: VssAuthService,
+      private apiService: AuthService,
+      private permission: VbomPermissionServiceService,
+      private adminService: AdminService
+  ) {
+    this.dataTabSelector = [
+      {url: '/sample', selector: SampleComponent},
+      {url: '/users', selector: UsersComponent},
+      {url: '/admin/log-history-management', selector: LogHistoryManagementComponent},
+      {url: '/admin/access-log-management', selector: AccessLogManagementComponent},
+      {url: '/admin/user-management', selector: UserManagementComponent},
+      {url: '/admin/user-management/user-list', selector: UserListComponent},
+      {url: '/admin/param-config-management', selector: ParamConfigManagementComponent},
+      {url: '/admin/permission-data-management', selector: PermissionDataManagementComponent},
+      {url: '/admin/function-management', selector: FunctionManagementComponent},
+      {url: '/admin/function-list', selector: FunctionListComponent},
+    ]
   }
 
-
-  changeExpand() {
-    this.isCollapsed = !this.isCollapsed;
-  }
 
   ngOnInit(): void {
+    this.getMenusPermission()
     this.apiService.getUserRoles().subscribe(
       res => {
-        this.permission.setRuleUser(res.data);
+        this.permission.setRuleUser(res);
       }
     )
   }
   logout() {
     this.vssAuthService.logout();
+  }
+
+  getMenusPermission() {
+    this.adminService.getMenusShow()
+        .subscribe(
+            resp => {
+              if (resp.code === ResponseCode.SUCCESS) {
+                resp?.data?.filter((x: any) => !!x?.moduleName)
+                this.menusPermission = resp?.data
+              }
+            }
+        )
   }
 
 }

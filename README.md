@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Setup Package vss-ui
 
-Run `npm config strict-ssl=false`
+Run `npm config set strict-ssl=false`
 
 Run `npm config set @viettel-vss-base:registry=https://10.60.98.103/api/v4/projects/525/packages/npm/`
 

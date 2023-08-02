@@ -1,0 +1,51 @@
+<div class="row">
+    <div class="col-xl-3 col-md-5 mb-2">
+        <nz-card class="max_height overflow-y">
+            <div class="css_flex mb-3">
+                <h6 class="fix_padding">Nhóm quyền</h6>
+                <div *ruleAuthorized="['ROLE_ROLEGROUP_SAVE', 'ROLE_ROLEGROUP_UPDATE', 'ROLE_ROLEGROUP_DELETE']">
+                  <button nz-button nzType="primary" *ruleAuthorized="['ROLE_ROLEGROUP_SAVE']" class="fix_mb1" type="button" (click)="openModelAdd()">
+                    <i nz-icon nzType="plus-circle" nzTheme="outline" aria-hidden="true"></i>Thêm mới
+                  </button>
+                </div>
+            </div>
+            <vss-ui-tree *ruleAuthorized="['ROLE_ROLEGROUP_VIEW']" [contextMenuItem]="['edit', 'copy', 'delete']" [nodes]="roleGroupsListData" (onClick)="onClickTreeRole($event)"
+            (onUpdateNode)="openModelUpdate()" (onDeleteNode)="deleteRoleGroup()" (onCopyNode)="openModelCopy()"></vss-ui-tree>
+        </nz-card>
+    </div>
+    <div class="col-xl-9 col-md-7">
+        <nz-card  class="max_height">
+            <div class="d-flex justify-content-between cs-card-header">
+                <div><h6>Danh sách người dùng</h6></div>
+              <div>
+                <button *ruleAuthorized="['ROLE_ROLEGROUP_DELETE']" nz-button class="mb-1 colorBtn" [nzType]="'default'" type="button"
+                        (click)="openPopupDelete()"><i nz-icon nzType="close-circle" nzTheme="outline" aria-hidden="true"></i>Xoá</button>
+              </div>
+            </div>
+          <ng-container *ruleAuthorized="['ROLE_USER_BY_ROLEGROUP_VIEW']">
+            <vss-ui-table #tableUserRole [isFilter]="true"  [columns]="col" (onViewItem)="editUser($event)"
+                               [settingValue]="settingValue" (itemSelected)="getItemSelected($event)" (itemUnSelected)="getItemUnSelected($event)"
+                               [listOfData]="listOfData" (onFilterData)="onFilterInTable($event)"   [loadingDataTable]="loadingTable"
+                               (onEditItem)="editUser($event)" (onLink)="editUser($event)" scrollX="700px"></vss-ui-table>
+            <vss-ui-pagination [pageSize]="paging.pageSize" (onPageSizeChange)="onPageSizeChange($event)"
+                           (onPageIndexChange)="onPageIndexChange($event)" [totalItem]="paging.totalElements"
+                           [isShowSizeChanger] = "true" [currentPage]="paging.pageIndex" ></vss-ui-pagination>
+          </ng-container>
+          </nz-card>
+    </div>
+</div>
+
+<nz-modal [(nzVisible)]="openModalAddRole" [nzTitle]="isCheckCreateOrUpdateOrCopy === 'CREATE' ? 'Thêm mới nhóm quyền': isCheckCreateOrUpdateOrCopy === 'UPDATE'? 'Cập nhật nhóm quyền' : isCheckCreateOrUpdateOrCopy === 'COPY'?'Sao chép nhóm quyền' : 'Xoá nhóm quyền'"
+    (nzOnCancel)="clickAddRoleCancel()" (nzOnOk)="clickAddRoleOk()" nzWidth="80%" [nzFooter]="null" [nzMaskClosable]="false" nzCentered>
+    <ng-container *nzModalContent>
+        <vbom-create-or-edit-permission [isCheckCreateOrUpdateOrCopy]="isCheckCreateOrUpdateOrCopy" [lsFunctionUpdate]="lsFunctionUpdate"
+            [lsUserUpdate]="lsUserUpdate"  [roleGroupDtoUpdate]="roleGroupDtoUpdate" (checkSuccess)="checkSuccess($event)"
+        ></vbom-create-or-edit-permission>
+    </ng-container>
+</nz-modal>
+
+<vss-ui-notification-popup [isOpenModal]="openModalDeleteRoleGroup ? openModalDeleteRoleGroup : showModalDeleteUsers"
+  (onCloseModal)="openModalDeleteRoleGroup = false;showModalDeleteUsers = false" [isWarning]="true"
+  (itemDeleteOk)="deleteOk($event)"
+  [messageNotification]="nameRoleGroup"></vss-ui-notification-popup>
+

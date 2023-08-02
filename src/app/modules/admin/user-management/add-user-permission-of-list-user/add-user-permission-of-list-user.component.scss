@@ -1,0 +1,13 @@
+@media (max-width: 1367px) {
+    .fix_height{
+        max-height: 430px; 
+        min-height: 430px;
+    }
+}
+
+@media (min-width: 1367px) {
+    .fix_height{
+        max-height: 430px; 
+        min-height: 430px;
+    }
+}
