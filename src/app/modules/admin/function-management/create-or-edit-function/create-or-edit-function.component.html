@@ -1,0 +1,104 @@
+<form [formGroup]="myForm" nz-form nzLayout="horizontal" novalidate>
+  <div class="row">
+    <div class="col-md-12 col-xl-6">
+      <nz-form-item class="mb-2">
+        <nz-form-label [nzSpan]="8" class="text-start">Loại<span
+          style="color: red; padding-left: 3px;">(*)</span>
+        </nz-form-label>
+        <nz-form-control [nzSpan]="16" [nzErrorTip]="errors">
+          <vss-ui-select-box [optionList]="type" formControlName="type" csPlaceHolder="---Chọn---"
+                            (csChange)="onChangeType($event)" [csAllowClear]="false"
+                            [csDisable]="isDisableType"></vss-ui-select-box>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item class="mb-2">
+        <nz-form-label [nzSpan]="8" class="text-start">Tên {{ myForm?.value?.type == 1 ? 'phân hệ' : 'chức năng' }}<span
+          style="color: red; padding-left: 3px;">(*)</span>
+        </nz-form-label>
+        <nz-form-control [nzSpan]="16" [nzErrorTip]="errors">
+          <input type="text" nz-input formControlName="name">
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item class="mb-2">
+        <nz-form-label [nzSpan]="8" class="text-start">Thuộc phân hệ
+        </nz-form-label>
+        <nz-form-control [nzSpan]="16" [nzErrorTip]="errors">
+          <vss-ui-select-box [optionList]="module" formControlName="moduleId" csPlaceHolder="---Chọn---"
+                            [csIsMultiLevel]="true"
+                            [csDropdownMatchSelectWidth]="true" (csChange)="changeModuleMenu($event)"
+                            [checkDisable]="checkDisableModuleMenu"
+                            [csAllowClear]="true"></vss-ui-select-box>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item class="mb-2">
+        <nz-form-label [nzSpan]="8" class="text-start">Hiển thị trên menu</nz-form-label>
+        <nz-form-control [nzSpan]="16" [nzErrorTip]="errors">
+          <cs-select [csOption]="displayMenuOption" formControlName="isShow" csPlaceHolder="---Chọn---"
+                     [csAllowClear]="false"></cs-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div class="col-md-12 col-xl-6">
+
+      <nz-form-item class="mb-2" *ngIf="!isDisableModuleId">
+        <nz-form-label [nzSpan]="8" class="text-start">Đường dẫn</nz-form-label>
+        <nz-form-control [nzSpan]="16" [nzErrorTip]="errors">
+          <input type="text" nz-input formControlName="url" [maxlength]="250">
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item class="mb-2">
+        <nz-form-label [nzSpan]="8" class="text-start">Thứ tự hiển thị</nz-form-label>
+        <nz-form-control [nzSpan]="16" [nzErrorTip]="errors">
+          <input inputNumber type="text" nz-input formControlName="indexOrder">
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item class="mb-2">
+        <nz-form-label [nzSpan]="8" class="text-start">Icon</nz-form-label>
+        <nz-form-control [nzSpan]="16" [nzErrorTip]="errors">
+          <nz-input-group [nzSuffix]="suffixTemplateInfo">
+            <input type="text" nz-input formControlName="icon" [maxlength]="250">
+          </nz-input-group>
+          <ng-template #suffixTemplateInfo>
+            <a href="https://fontawesome.com/v4/icons/" target="_blank" [nz-tooltip]="'Xem danh sách icon'"
+               nz-icon class="icon-question " nzType="question-circle"></a>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item class="mb-2" *ngIf="!isDisableModuleId">
+        <nz-form-label [nzSpan]="8" class="text-start">Tên form</nz-form-label>
+        <nz-form-control [nzSpan]="16" [nzErrorTip]="errors">
+          <input type="text" nz-input formControlName="formName" [maxlength]="100">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <nz-form-item class="mb-2">
+      <nz-form-label [nzSpan]="4" class="text-start"> Mô tả
+      </nz-form-label>
+      <nz-form-control [nzSpan]="20" [nzErrorTip]="errors">
+                <textarea formControlName="description" nz-input autosize
+                          [nzAutosize]="{ minRows: 3, maxRows: 5 }" [maxlength]="300"></textarea>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+
+  <div class="me-n4 ms-n4 mb-n4 border mt-4 p-3 text-center">
+    <button nz-button nzType="default" class="me-3 colorBtn" type="button" (click)="closeModal()">
+      <i nz-icon nzType="close-circle" nzTheme="outline" aria-hidden="true"></i>Thoát
+    </button>
+    <button nz-button nzType="primary" class="me-3" type="button" (click)="submit()">
+      <i nz-icon nzType="check-circle" nzTheme="outline" aria-hidden="true"></i>Lưu lại
+    </button>
+  </div>
+</form>
+
+<ng-template #errors let-control>
+  <render-errors [data]="control"></render-errors>
+</ng-template>

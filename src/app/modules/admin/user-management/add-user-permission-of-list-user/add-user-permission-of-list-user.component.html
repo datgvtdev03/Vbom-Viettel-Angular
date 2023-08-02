@@ -1,0 +1,19 @@
+<div class="fix_height">
+    <!-- <nz-card> -->
+    <div class="row">
+        <div class="col-md-12 col-xl-12">
+            <span><strong>Danh sách người dùng</strong></span>
+        </div>
+        <div class="col-12" *ruleAuthorized="['ROLE_USER_SEARCH', 'ROLE_USER_VIEW']">
+            <vss-ui-table [settingValue]="settingValue" [columns]="col" [listOfData]="listOfData"
+                (onFilterData)="onFilterInTable($event)" [loadingDataTable]="loadingTable"
+                (itemSelected)="itemSelected($event)"
+                (itemUnSelected)="itemUnSelected($event)" [scrollY]="'300px'" [isFilter]="true"></vss-ui-table>
+            <vss-ui-pagination [totalItem]="paging.totalElements" [pageSize]="paging.pageSize"
+                [currentPage]="paging.pageIndex"
+                (onPageIndexChange)="onPageIndexChange($event);CheckDataChangePage($event)"
+                (onPageSizeChange)="onPageSizeChange($event)"></vss-ui-pagination>
+        </div>
+    </div>
+    <!-- </nz-card> -->
+</div>

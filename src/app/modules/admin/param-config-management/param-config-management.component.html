@@ -1,0 +1,41 @@
+<nz-card class="full-height-block"  style="overflow-y: auto">
+    <div class="row">
+        <div class="col-md-12 col-xl-12">
+            <span><strong>Danh sách tham số</strong></span>
+        </div>
+        <div class="col-md-4 col-xl-4">
+            <nz-radio-group [(ngModel)]="titleList" (ngModelChange)="onChangeType($event)">
+                <label nz-radio nzValue="Dữ liệu mặc định">Dữ liệu mặc định</label>
+                <label nz-radio nzValue="Dữ liệu đã xoá">Dữ liệu đã xoá</label>
+              </nz-radio-group>
+        </div>
+        <div class="col-md-8 col-xl-8 mb-2">
+            <div class="justify-content-end d-flex">
+                <span *ruleAuthorized="['ROLE_APP_CONFIG_RESTORE']" >
+                    <button *ngIf="titleList === this.du_lieu_da_xoa" nz-button [nzType]="this.isDisableRestoreData ?'default': 'primary'" type="button" [disabled]="isDisableRestoreData"
+                            (click)="restoreDataChose()"> <i nz-icon nzType="reload" nzTheme="outline" aria-hidden="true"></i>Khôi phục dữ liệu</button>
+                </span>
+                <span *ruleAuthorized="['ROLE_APP_CONFIG_DELETE']">
+                    <button *ngIf="titleList === this.du_lieu_mac_dinh" nz-button nzType="default" type="button" class="mr1 colorBtn"
+                    (click)="deleteChose()"> <i nz-icon nzType="close-circle" nzTheme="outline" aria-hidden="true"></i>Xoá</button>
+                </span>
+                <span *ruleAuthorized="['ROLE_APP_CONFIG_SAVE']" >
+                    <button *ngIf="titleList === this.du_lieu_mac_dinh" nz-button nzType="primary" type="button"
+                    (click)="addConfig()"> <i nz-icon nzType="plus-circle" nzTheme="outline" aria-hidden="true"></i>Thêm mới</button>
+                </span>
+            </div>
+        </div>
+        <div class="col-12" *ruleAuthorized="['ROLE_APP_CONFIG_VIEW']">
+            <vss-ui-table [settingValue]="settingValue" [columns]="titleList === this.du_lieu_da_xoa ? colRestore : col" [isFilter]="true" (onViewItem)="updateConfig($event)"
+                (onFilterData)="onFilterInTable($event)"   [loadingDataTable]="loadingTable"
+                [listOfData]="titleList === this.du_lieu_da_xoa ? displayListRestore : displayList" (onRemove)="deleteConfig($event)"
+                (onEditItem)="updateConfig($event)" [scrollY]="'50vh'" (itemSelected)="getItemSelected($event)" (itemUnSelected)="getItemUnSelected($event)"></vss-ui-table>
+            <vss-ui-pagination (onPageSizeChange)="onPageSizeChange($event)" (onPageIndexChange)="onPageIndexChange($event)"
+                [totalItem]="paging.totalElements" [pageSize]="paging.pageSize" [currentPage]="paging.pageIndex">
+            </vss-ui-pagination>
+
+            <!-- <vss-ui-pagination [totalItem]="paging.totalElements" [pageSize]="paging.size" [currentPage]="paging.page"
+                (onPageSizeChange)=onPageSizeChange($event) (onPageIndexChange)="getData($event)"></vss-ui-pagination> -->
+        </div>
+    </div>
+</nz-card>

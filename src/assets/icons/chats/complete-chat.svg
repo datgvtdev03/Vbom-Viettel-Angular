@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <g id="Component_195_128" data-name="Component 195 – 128" transform="translate(-0.439 -0.001)">
+    <rect id="Rectangle_11103" data-name="Rectangle 11103" width="32" height="32" rx="16" transform="translate(0.439 0.001)" fill="#e03"/>
+    <g id="Group_23517" data-name="Group 23517" transform="translate(7.411 6.972)">
+      <g id="Group_23517-2" data-name="Group 23517">
+        <path id="Path_66115" data-name="Path 66115" d="M7,11v1.5h.752a.752.752,0,0,0,.752-.752V11Z" transform="translate(-2.765 -3.376)" fill="#fff"/>
+        <path id="Path_66116" data-name="Path 66116" d="M11,11v1.5h.752a.752.752,0,0,0,.752-.752V11Z" transform="translate(-3.376 -3.376)" fill="#fff"/>
+        <path id="Path_66117" data-name="Path 66117" d="M15,11v1.5h.752a.752.752,0,0,0,.752-.752V11Z" transform="translate(-3.987 -3.376)" fill="#fff"/>
+        <path id="Path_66118" data-name="Path 66118" d="M10.449,2a8.449,8.449,0,1,0,0,16.9h1.69v-1.69h-1.69a6.76,6.76,0,1,1,6.76-6.76v1.69H18.9v-1.69A8.449,8.449,0,0,0,10.449,2Z" transform="translate(-2 -2)" fill="#fff"/>
+        <path id="Path_66119" data-name="Path 66119" d="M19.658,17.528l-.534.534-1.6-1.6L16.46,17.528l1.6,1.6-1.6,1.6,1.068,1.068,1.6-1.6,1.6,1.6,1.068-1.068-1.6-1.6.534-.534,1.068-1.061L20.719,16.46Z" transform="translate(-3.729 -3.729)" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+</svg>

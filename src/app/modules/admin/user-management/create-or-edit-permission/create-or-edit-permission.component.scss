@@ -1,0 +1,47 @@
+.fix-w{
+    width: 50%;
+    padding-left: 2rem;
+}
+:host ::ng-deep .ant-tabs-card .ant-tabs-content{
+    overflow-y: unset;
+}
+// .positionRe{
+//     position: relative;
+// }
+// .positionAb{
+//     position: absolute; 
+//     right: 0; 
+//     z-index: 1000;
+// }
+
+:host ::ng-deep .ant-tabs-card .ant-tabs-content {
+    margin-top: 0px;
+}
+
+// :host ::ng-deep .ant-modal-body{
+//   padding: 10px;
+// }
+
+// :host ::ng-deep .ant-card-body {
+//   padding: 15px;
+// }
+
+:host ::ng-deep .ant-tabs-content-holder::after{
+    background: none;
+    width: 0;
+    height: 0;
+}
+
+@media (max-width: 1367px) {
+    .fix_height{
+        max-height: 450px; 
+        min-height: 450px;
+    }
+}
+
+@media (min-width: 1367px) {
+    .fix_height{
+        max-height: 550px; 
+        min-height: 550px;
+    }
+}

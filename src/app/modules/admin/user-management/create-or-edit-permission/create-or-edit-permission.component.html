@@ -1,0 +1,164 @@
+<form [formGroup]="myForm" novalidate>
+    <div style="overflow: auto;" class="fix_height">
+        <nz-card class="mb-1">
+            <div class="row">
+                <div class="col-md-12 col-xl-6">
+                    <nz-form-item class="mb-2">
+                        <nz-form-label [nzSpan]="8" class="text-start">Tên nhóm quyền <span
+                                style="color: red; padding-left: 3px;">(*)</span>
+                        </nz-form-label>
+                        <nz-form-control [nzSpan]="16" [nzErrorTip]="errors">
+                            <input type="text" nz-input formControlName="roleGroups" [maxlength]="250">
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+
+                <div class="col-md-12 col-xl-6">
+                    <nz-form-item class="mb-2">
+                        <nz-form-label [nzSpan]="8" class="text-start">Mô tả
+                        </nz-form-label>
+                        <nz-form-control [nzSpan]="16" [nzErrorTip]="errors">
+                            <input type="text" nz-input formControlName="describe" [maxlength]="500">
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+
+                <div class="col-md-12 col-xl-6">
+                    <nz-form-item class="mb-2">
+                        <nz-form-label [nzSpan]="8" class="text-start">Kho <span
+                                style="color: red; padding-left: 3px;">(*)</span>
+                        </nz-form-label>
+                        <nz-form-control [nzSpan]="16" [nzErrorTip]="errors">
+                            <cs-select [csOption]="lstStore" formControlName="storeId" csPlaceHolder="---Chọn---" [csDisable]="isDisDepartment" (csChange)="changeDepartment($event)"></cs-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+
+                <div class="col-md-12 col-xl-6">
+                    <nz-form-item class="mb-2">
+                        <nz-form-label [nzSpan]="8" class="text-start">Chức vụ <span
+                                style="color: red; padding-left: 3px;">(*)</span>
+                        </nz-form-label>
+                        <nz-form-control [nzSpan]="16" [nzErrorTip]="errors">
+                            <cs-select [csOption]="lstPosition" formControlName="position" csPlaceHolder="---Chọn---" [csDisable]="isDisPosition" (csChange)="changePoisition($event)"></cs-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+
+                <div class="col-md-12 col-xl-6">
+                    <nz-form-item class="mb-2">
+                        <nz-form-label [nzSpan]="8" class="text-start">Trạng thái
+                        </nz-form-label>
+                        <nz-form-control [nzSpan]="16" [nzErrorTip]="errors">
+                            <!-- <nz-select formControlName="status" nzPlaceHolder="---Chọn---" nzAllowClear nzShowSearch
+                                [nzOptions]="lstStatus" [nzNotFoundContent]="noData"></nz-select> -->
+                            <cs-select [csOption]="lstStatus" formControlName="status" csPlaceHolder="---Chọn---"  [csDisable]="isDisStatus"></cs-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+
+                <div class="col-md-6 col-xl-3">
+                    <nz-form-item class="mb-2">
+                        <nz-form-control [nzSpan]="12" class="me-2">
+                            <vss-ui-checkbox formControlName="default"  (csChange)="clickDefault($event)" [csDisable]="isDisableDefault"></vss-ui-checkbox> <span class="ms-2">Mặc định</span>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div class="col-md-6 col-xl-3">
+                    <nz-form-item class="mb-2">
+                        <nz-form-control [nzSpan]="18" class="me-2">
+                            <vss-ui-checkbox formControlName="adminRole" (csChange)="clickAdmin($event)" [csDisable]="isDisableAdmin"></vss-ui-checkbox> <span class="ms-2">Quyền admin</span>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+
+                <div class="col-12">
+                    <div class="text-end">
+                        <button nz-button class="me-3 colorBtn" nzType="default" type="button" *ruleAuthorized="['ROLE_USER_DATA_DELETE']" (click)="deleteListUser()">
+                            <i nz-icon nzType="close-circle" nzTheme="outline" aria-hidden="true"></i>Xoá</button>
+                        <button nz-button nzType="primary" *ruleAuthorized="['ROLE_USER_DATA_UPDATE']" type="button" (click)="addUser()">
+                            <i nz-icon nzType="plus-circle" nzTheme="outline" aria-hidden="true"></i>Thêm người dùng</button>
+                    </div>
+                </div>
+            </div>
+            <ng-template #errors let-control>
+                <render-errors [data]="control"></render-errors>
+            </ng-template>
+        </nz-card>
+        <nz-card>
+            <div class="positionRe">
+                <nz-tabset nzType="card" [(nzSelectedIndex)]="index" (nzSelectedIndexChange)="selectTab($event)">
+                    <nz-tab *ngFor="let tab of tabs" [nzTitle]="tab">
+                        <div *ngIf="index === 0">
+                            <vss-ui-table [settingValue]="settingValue" [columns]="col" [listOfData]="listOfData"
+                                (onRemove)="deleteItem($event)" [scrollY]="'200px'" [isFilter]="true"
+                                (itemSelected)="itemSelected($event)" (itemUnSelected)="itemUnSelected($event)">
+                            </vss-ui-table>
+                        </div>
+                        <div *ngIf="index === 1">
+                            <div class="row" *ruleAuthorized="['ROLE_MODULE_VIEW']">
+                                <div class="col-4">
+                                    <p style="z-index: 100;"><strong>Phân hệ, chức năng</strong></p>
+                                    <nz-card class="mb-1" style="overflow-y: auto; max-height:400px; min-height: 400px;">
+                                        <vss-ui-tree [nodes]="moduleMenu" [contextMenuItem]="[]" (onClick)="onClickTreeRole($event)"></vss-ui-tree>
+                                    </nz-card>
+                                </div>
+                                <div class="col-8">
+                                    <div class="row">
+                                        <div class="col-12 mb-1">
+                                            <p style="z-index: 100;"><strong>Danh sách tính năng</strong></p>
+                                            <!-- <cs-input-search style="margin-left: 1rem;" [csPlaceHolder]="'Tìm kiếm'" (csChange)="searchRole($event)"></cs-input-search> -->
+                                        </div>
+                                        <div class="col-12"  *ruleAuthorized="['ROLE_FUNCTION_VIEW']">
+                                            <nz-card style="max-height:400px; min-height: 400px;">
+                                                <vss-ui-table [settingValue]="settingValue" [columns]="colFunction"
+                                                    [listOfData]="listOfDataFunction"
+                                                    [scrollY]="'200px'" [isFilter]="true" [isCheckDisable]="isCheckDisable"
+                                                    (itemSelected)="itemSelectedFunction($event)" (itemUnSelected)="itemUnSelectedFunction($event)"></vss-ui-table>
+                                            </nz-card>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <nz-form-item class="mb-1">
+                                <nz-form-control class="me-2">
+                                    <vss-ui-checkbox (csChange)="showFunctions($event)" formControlName="checkFunction"></vss-ui-checkbox> <span class="ms-2">Hiển thị danh sách
+                                        chức năng trong các phân hệ</span>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </nz-tab>
+                </nz-tabset>
+            </div>
+        </nz-card>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="text-center mt-2">
+                <button nz-button class="me-3 colorBtn" nzType="default" type="button" (click)="outModal()"><i nz-icon nzType="close-circle" nzTheme="outline" aria-hidden="true"></i>Thoát</button>
+                <button nz-button nzType="primary" type="button" (click)="saveCreate()"><i nz-icon nzType="check-circle" nzTheme="outline" aria-hidden="true"></i>Lưu lại</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<nz-modal [(nzVisible)]="openModalSearchUser" nzTitle="Tìm kiếm người dùng"  nzWidth="80%"
+    (nzOnCancel)="clickAddRoleCancel()" (nzOnOk)="clickAddRoleOk()" [nzFooter]="modalFooter" [nzMaskClosable]="false" nzCentered>
+    <ng-container *nzModalContent>
+        <vbom-add-user-permission-of-list-user [isCheckCreateOrUpdateOrCopy]="isCheckCreateOrUpdateOrCopy" (dataChose)="dataChose($event)" [userChoseCheck]="listOfData"></vbom-add-user-permission-of-list-user>
+    </ng-container>
+    <ng-template #modalFooter>
+        <div class="text-center">
+            <button nz-button nzType="default" class="me-3 colorBtn" type="button" (click)="clickAddRoleCancel()"><i nz-icon nzType="close-circle" nzTheme="outline" aria-hidden="true"></i>Thoát</button>
+            <button nz-button nzType="primary" class="me-3" type="button" (click)="clickAddRoleOk()"><i nz-icon nzType="check-circle" nzTheme="outline" aria-hidden="true"></i>Chọn</button>
+        </div>
+    </ng-template>
+</nz-modal>
+
+<vss-ui-notification-popup [isOpenModal]="openModalDeleteUser ? openModalDeleteUser : openModalClickDefault"
+  (onCloseModal)="openModalDeleteUser = false; openModalClickDefault = false" [isWarning]="true"
+  (itemDeleteOk)="deleteUOk($event)"
+  [messageNotification]="messageDeNamePoiName"></vss-ui-notification-popup>
+
+
+

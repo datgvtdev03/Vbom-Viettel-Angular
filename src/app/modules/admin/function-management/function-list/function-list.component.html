@@ -1,0 +1,33 @@
+<nz-card class="full-height-block" style="overflow-y: auto">
+  <div class="row">
+    <div class="col-12">
+        <h6>Danh sách tính năng</h6>
+    </div>
+    <div class="col-md-4 col-xl-4">
+      <nz-radio-group [(ngModel)]="tabDelData" (ngModelChange)="onChangeType()">
+        <label nz-radio [nzValue]="0">Dữ liệu mặc định</label>
+        <label nz-radio [nzValue]="1">Dữ liệu đã xoá</label>
+      </nz-radio-group>
+    </div>
+    <div class="col-md-8 col-xl-8">
+      <div class="justify-content-end d-flex">
+        <span *ruleAuthorized="['ROLE_FUNCTION_RESTORE']"><button *ngIf="tabDelData == 1" nz-button [nzType]="this.isDisableRestoreData ?'default': 'primary'"
+                type="button" class="mb-1" [disabled]="isDisableRestoreData"
+          (click)="restoreDataChose()"> <i nz-icon nzType="reload" nzTheme="outline" aria-hidden="true"></i>Khôi phục dữ liệu</button></span>
+        <span *ruleAuthorized="['ROLE_FUNCTION_DELETE']"><button  *ngIf="tabDelData == 0" nz-button nzType="default" type="button" class="mr1 colorBtn"
+          (click)="deleteChose()"> <i nz-icon nzType="close-circle" nzTheme="outline" aria-hidden="true"></i>Xoá</button></span>
+        <span *ruleAuthorized="['ROLE_FUNCTION_SAVE']"><button *ngIf="tabDelData == 0" nz-button class="mb-1" [nzType]="'primary'" type="button" (click)="openModelAdd()"><i nz-icon
+            nzType="plus-circle" nzTheme="outline" aria-hidden="true"></i>Thêm mới</button></span>
+      </div>
+    </div>
+    <div class="col-12">
+      <vss-ui-table *ruleAuthorized="['ROLE_FUNCTION_VIEW']" [isFilter]="true" [settingValue]="settingValue" [columns]="tabDelData == 1 ? colRestore : col" [scrollY]="'58vh'"
+        (onViewItem)="tabDelData == 0 ? editRowData($event) : null" (onEditItem)="editRowData($event)" (onRemove)="deleteFunction($event)"
+        [listOfData]="functionList" (itemSelected)="getItemSelected($event)" (itemUnSelected)="getItemUnSelected($event)">
+      </vss-ui-table>
+      <!-- <vss-ui-pagination [pageSize]="pageSize" (onPageSizeChange)="onPageSizeChange($event)"
+          (onPageIndexChange)="onPageIndexChange($event)" [totalItem]="total" [isShowSizeChanger]="true"
+          [currentPage]="currentPage"></vss-ui-pagination> -->
+    </div>
+  </div>
+</nz-card>

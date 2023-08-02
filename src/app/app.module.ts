@@ -18,7 +18,7 @@ import {LayoutBlankComponent} from './layout/layout-blank/layout-blank.component
 import {
   AuthInterceptor,
   ErrorInterceptor,
-  MenuModule,
+  MenuModule, PermissionService,
   TabGroupModule, TableModule,
   VssApiService,
   VssUiConfig, VssUiModule
@@ -26,6 +26,9 @@ import {
 import {KeycloakService} from 'keycloak-angular';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {environment} from '@vbomEnv/environment';
+import {VbomPermissionServiceService} from '@vbomApp/service/vbom-permission-service.service';
+import {AuthService} from '@vbomApp/service/auth.service';
+import {Router} from '@angular/router';
 registerLocaleData(vi);
 
 function initializeKeycloak(keycloak: KeycloakService): () => Promise<any> {
@@ -81,6 +84,12 @@ function initializeKeycloak(keycloak: KeycloakService): () => Promise<any> {
       multi: true,
     },
     { provide: NZ_I18N, useValue: vi_VN },
+    {
+      provide: PermissionService,
+      useClass: VbomPermissionServiceService,
+      deps: [Router, AuthService]
+    },
+
     // {
     //   provide: VssUiConfig,
     //   useClass: ExtentApi,

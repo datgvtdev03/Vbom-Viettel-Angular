@@ -1,0 +1,39 @@
+::ng-deep .ant-dropdown-menu {
+  bottom: 20px;
+  left: 10px;
+}
+
+.css_flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.max_height{
+  max-height: calc(100vh - 120px);
+  min-height: calc(100vh - 120px);
+}
+
+.overflow-y{
+  overflow-y: auto;
+}
+.cs-card-header {
+  min-height: 3rem;
+}
+
+//.ant-btn > .anticon + span,
+//.ant-btn > span + .anticon {
+//  margin-left: 3px;
+//}
+.fix_padding {
+  padding: 8px 0 0 0;
+}
+@media (max-width: 1000px) {
+  .css_flex{
+    display: unset;
+    justify-content: unset;
+  }
+
+  .fix_mb1{
+    margin-bottom: 1rem;
+  }
+}
