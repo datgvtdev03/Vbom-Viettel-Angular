@@ -24,7 +24,14 @@ const routes: Routes = [
       {
         path: 'admin',
         loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule)
-      }
+      },
+      {
+        path: 'company',
+        loadChildren: () =>
+          import('./modules/categoty-company/company.module').then(
+            (m) => m.CompanyModule
+          ),
+      },
     ]
   },
   // {

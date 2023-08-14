@@ -1,0 +1,41 @@
+<nz-card class="full-height-block" style="overflow-y: auto">
+  <div class="justify-content-between d-flex mb-2">
+    <span><strong>Danh sách nhân viên</strong></span>
+    <span>
+      <button
+        nz-button
+        nzType="primary"
+        type="button"
+        class="ant-btn ant-btn-primary"
+        (click)="addConfig()"
+      >
+        <i
+          nz-icon
+          nzType="plus-circle"
+          nzTheme="outline"
+          aria-hidden="true"
+        ></i>
+        <span>Thêm mới</span>
+      </button>
+    </span>
+  </div>
+  <ng-container>
+    <vss-ui-table
+      [settingValue]="settingValue"
+      [columns]="col"
+      [listOfData]="listOfData"
+      (onViewItem)="editUser($event)"
+      (onEditItem)="editUser($event)"
+      (onFilterData)="onFilterInTable($event)"
+      [loadingDataTable]="loadingTable"
+      [isFilter]="true"
+    ></vss-ui-table>
+    <vss-ui-pagination
+      [totalItem]="paging.totalElements"
+      [pageSize]="paging.pageSize"
+      [currentPage]="paging.pageIndex"
+      (onPageIndexChange)="onPageIndexChange($event)"
+      (onPageSizeChange)="onPageSizeChange($event)"
+    ></vss-ui-pagination>
+  </ng-container>
+</nz-card>

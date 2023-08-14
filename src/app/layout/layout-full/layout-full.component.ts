@@ -29,6 +29,19 @@ import {
 } from '@vbomApp/modules/admin/permission-data-management/permission-data-management.component';
 import {FunctionManagementComponent} from '@vbomApp/modules/admin/function-management/function-management.component';
 import {FunctionListComponent} from '@vbomApp/modules/admin/function-management/function-list/function-list.component';
+import {CompanyStaffComponent} from "@vbomApp/modules/categoty-company/component/company-staff/company-staff.component";
+import {
+  CompanyDepartmentComponent
+} from "@vbomApp/modules/categoty-company/component/company-department/company-department.component";
+import {
+  CompanyMandatesComponent
+} from "@vbomApp/modules/categoty-company/component/company-mandates/company-mandates.component";
+import {
+  CompanySystemComponent
+} from "@vbomApp/modules/categoty-company/component/company-system/company-system.component";
+import {
+  CompanyTargetsTreeComponent
+} from "@vbomApp/modules/categoty-company/component/company-targets-tree/company-targets-tree";
 
 @Component({
   selector: 'vbom-layout-full',
@@ -84,6 +97,11 @@ export class LayoutFullComponent implements OnInit {
       {url: '/admin/permission-data-management', selector: PermissionDataManagementComponent},
       {url: '/admin/function-management', selector: FunctionManagementComponent},
       {url: '/admin/function-list', selector: FunctionListComponent},
+      { url: '/company/staff', selector: CompanyStaffComponent },
+      { url: '/company/department', selector: CompanyDepartmentComponent },
+      { url: '/company/mandates', selector: CompanyMandatesComponent },
+      { url: '/company/system', selector: CompanySystemComponent },
+      { url: '/company/targets', selector: CompanyTargetsTreeComponent }
     ]
   }
 

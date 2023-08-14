@@ -1,0 +1,126 @@
+<div class="row">
+  <div class="max_height col-xl-3 col-md-4">
+    <nz-card class="overflow-y h-100">
+      <div class="css_flex mb-3 justify-content-between d-flex">
+        <span><strong>Cây đơn vị</strong></span>
+        <span>
+          <button nz-button nzType="primary" class="fix_mb1" type="button" (click)="addDepartment()">
+            <i
+              nz-icon
+              nzType="plus-circle"
+              nzTheme="outline"
+              aria-hidden="true"
+            ></i
+            >Thêm mới
+          </button>
+        </span>
+      </div>
+      <!-- <vss-ui-tree
+        *ruleAuthorized="['ROLE_ROLEGROUP_VIEW']"
+        [contextMenuItem]="['edit', 'copy', 'delete']"
+        [nodes]="roleGroupsListData"
+        (onClick)="onClickTreeRole($event)"
+        (onUpdateNode)="openModelUpdate()"
+        (onDeleteNode)="deleteRoleGroup()"
+        (onCopyNode)="openModelCopy()"
+      ></vss-ui-tree> -->
+    </nz-card>
+  </div>
+  <div class="col-xl-9 col-md-8 max_height">
+    <nz-card>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row">
+            <label class="col-4">Mã đơn vị:</label>
+            <nz-input-group class="col-6" [nzSuffix]="suffixIconSearch">
+              <input type="text" nz-input placeholder="Nhập mã nhân viên" />
+            </nz-input-group>
+            <ng-template #suffixIconSearch>
+              <span nz-icon nzType="search"></span>
+            </ng-template>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <label class="col-4">Tên đơn vị:</label>
+            <nz-input-group class="col-6" [nzSuffix]="suffixIconSearch">
+              <input type="text" nz-input placeholder="Nhập tên nhân viên" />
+            </nz-input-group>
+            <ng-template #suffixIconSearch>
+              <span nz-icon nzType="search"></span>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+      <button
+        nz-button
+        nzType="primary"
+        type="button"
+        style="
+          position: relative;
+          left: 50%;
+          margin-top: 3em;
+          transform: translate(-50%, 0);
+        "
+      >
+        <span nz-icon nzType="search" nzTheme="outline"></span>Tìm kiếm
+      </button>
+    </nz-card>
+    <nz-card class="">
+      <div class="justify-content-between d-flex mb-2">
+        <span><strong>Danh sách nhân viên</strong></span>
+        <span>
+          <button
+            nz-button
+            nzType="primary"
+            type="button"
+            class="ant-btn ant-btn-primary"
+            (click)="addStaff()"
+          >
+            <i
+              nz-icon
+              nzType="plus-circle"
+              nzTheme="outline"
+              aria-hidden="true"
+            ></i>
+            <span>Thêm mới</span>
+          </button>
+        </span>
+      </div>
+      <ng-container>
+        <vss-ui-table
+          [isFilter]="true"
+          [columns]="col"
+          (onViewItem)="editUser($event)"
+          [settingValue]="settingValue"
+          [listOfData]="listOfData"
+          (onFilterData)="onFilterInTable($event)"
+          [loadingDataTable]="loadingTable"
+          (onEditItem)="editUser($event)"
+          scrollX="700px"
+          [isFilter]="true"
+        ></vss-ui-table>
+        <vss-ui-pagination
+          [pageSize]="paging.pageSize"
+          (onPageSizeChange)="onPageSizeChange($event)"
+          (onPageIndexChange)="onPageIndexChange($event)"
+          [totalItem]="paging.totalElements"
+          [isShowSizeChanger]="true"
+          [currentPage]="paging.pageIndex"
+        ></vss-ui-pagination>
+      </ng-container>
+    </nz-card>
+  </div>
+</div>
+
+<!-- <vss-ui-notification-popup
+  [isOpenModal]="
+    openModalDeleteRoleGroup ? openModalDeleteRoleGroup : showModalDeleteUsers
+  "
+  (onCloseModal)="
+    openModalDeleteRoleGroup = false; showModalDeleteUsers = false
+  "
+  [isWarning]="true"
+  (itemDeleteOk)="deleteOk($event)"
+  [messageNotification]="nameRoleGroup"
+></vss-ui-notification-popup> -->
