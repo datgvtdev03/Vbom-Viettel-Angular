@@ -1,0 +1,178 @@
+<form nz-form [formGroup]="myForm" novalidate>
+  <div class="row">
+    <div class="col-md-6 col-xl-6">
+      <nz-form-item class="mb-2">
+        <nz-form-label [nzSpan]="8" class="text-start"
+        >Map loại<span style="color: red; padding-left: 3px">(*)</span>
+        </nz-form-label>
+        <nz-form-control [nzSpan]="16">
+          <vss-ui-select-box
+            csPlaceHolder="---Chọn---"
+            formControlName="maptype"
+            [optionList]="maptype"
+            csMode="default"
+          >
+          </vss-ui-select-box>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div class="col-md-6 col-xl-6">
+      <nz-form-item class="mb-2">
+        <nz-form-label [nzSpan]="8" class="text-start"
+        >Áp dụng giao chỉ tiêu<span style="color: red; padding-left: 3px">(*)</span>
+        </nz-form-label>
+        <nz-form-control [nzSpan]="16">
+          <vss-ui-select-box
+            csPlaceHolder="---Chọn---"
+            formControlName="targetapply"
+            [optionList]="targetapply"
+            csMode="default"
+          >
+          </vss-ui-select-box>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div class="col-md-6 col-xl-6">
+      <nz-form-item class="mb-2">
+        <nz-form-label [nzSpan]="8" class="text-start"
+        >Map mã<span style="color: red; padding-left: 3px">(*)</span>
+        </nz-form-label>
+        <nz-form-control [nzSpan]="16">
+          <vss-ui-select-box
+            csPlaceHolder="---Chọn---"
+            formControlName="mapid"
+            [optionList]="mapid"
+            csMode="default"
+          >
+          </vss-ui-select-box>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div class="col-md-6 col-xl-6">
+      <nz-form-item class="mb-2">
+        <nz-form-label [nzSpan]="8" class="text-start"
+        >Thứ tự<span style="color: red; padding-left: 3px">(*)</span>
+        </nz-form-label>
+        <nz-form-control [nzSpan]="16">
+          <input
+            #focusInput
+            autofocus
+            type="text"
+            nz-input
+            formControlName="order"
+            [maxlength]="100"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div class="col-md-6 col-xl-6">
+      <nz-form-item class="mb-2">
+        <nz-form-label [nzSpan]="8" class="text-start"
+        >Mã chỉ tiêu<span style="color: red; padding-left: 3px">(*)</span>
+        </nz-form-label>
+        <nz-form-control [nzSpan]="16">
+          <input
+            #focusInput
+            autofocus
+            type="text"
+            nz-input
+            formControlName="targetid"
+            [maxlength]="100"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div class="col-md-6 col-xl-6">
+      <nz-form-item class="mb-2">
+        <nz-form-label [nzSpan]="8" class="text-start"
+        >Đơn vị tính<span style="color: red; padding-left: 3px">(*)</span>
+        </nz-form-label>
+        <nz-form-control [nzSpan]="16">
+          <input
+            #focusInput
+            autofocus
+            type="text"
+            nz-input
+            formControlName="donvitinh"
+            [maxlength]="100"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div class="col-md-6 col-xl-6">
+      <nz-form-item class="mb-2">
+        <nz-form-label [nzSpan]="8" class="text-start"
+        >Tên chỉ tiêu<span style="color: red; padding-left: 3px">(*)</span>
+        </nz-form-label>
+        <nz-form-control [nzSpan]="16">
+          <input
+            #focusInput
+            autofocus
+            type="text"
+            nz-input
+            formControlName="targetname"
+            [maxlength]="100"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div class="col-md-6 col-xl-6">
+      <nz-form-item class="mb-2">
+        <nz-form-label [nzSpan]="8" class="text-start"
+        >Trạng thái<span style="color: red; padding-left: 3px">(*)</span>
+        </nz-form-label>
+        <nz-form-control [nzSpan]="16">
+          <vss-ui-select-box
+            csPlaceHolder="---Chọn---"
+            formControlName="status"
+            [optionList]="status"
+            csMode="default"
+          >
+          </vss-ui-select-box>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div class="col-md-6 col-xl-6">
+      <nz-form-item class="mb-2">
+        <nz-form-label [nzSpan]="8" class="text-start"
+        >Áp dụng cho ĐT<span style="color: red; padding-left: 3px">(*)</span>
+        </nz-form-label>
+        <nz-form-control [nzSpan]="16">
+          <vss-ui-select-box
+            csPlaceHolder="---Chọn---"
+            formControlName="doituong"
+            [optionList]="doituong"
+            csMode="default"
+          >
+          </vss-ui-select-box>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+  </div>
+
+  <div class="justify-content-center d-flex">
+    <!-- <button nz-button nzDanger class="" [nzType]="'default'">Hủy</button>
+    <button nz-button class="" [nzType]="'primary'">Lưu</button> -->
+    <button
+      nz-button
+      nzType="default"
+      class="me-3 colorBtn"
+      type="button"
+      (click)="destroyModal()"
+    >
+      <i nz-icon nzType="close-circle" nzTheme="outline" aria-hidden="true"></i
+      >Thoát
+    </button>
+    <button
+      nz-button
+      nzType="primary"
+      class="me-3"
+      type="button"
+      (click)="onSubmit()"
+    >
+      <i nz-icon nzType="check-circle" nzTheme="outline" aria-hidden="true"></i
+      >Lưu lại
+    </button>
+  </div>
+</form>
