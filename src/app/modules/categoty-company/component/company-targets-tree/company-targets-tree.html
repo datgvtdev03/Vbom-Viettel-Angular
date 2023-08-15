@@ -5,15 +5,16 @@
         <span><strong>Cây chỉ tiêu</strong></span>
 
       </div>
-      <!-- <vss-ui-tree
+      <vss-ui-tree
+        [showSearch]="false"
         *ruleAuthorized="['ROLE_ROLEGROUP_VIEW']"
         [contextMenuItem]="['edit', 'copy', 'delete']"
-        [nodes]="roleGroupsListData"
+        [nodes]="nodes"
         (onClick)="onClickTreeRole($event)"
         (onUpdateNode)="openModelUpdate()"
         (onDeleteNode)="deleteRoleGroup()"
         (onCopyNode)="openModelCopy()"
-      ></vss-ui-tree> -->
+      ></vss-ui-tree>
     </nz-card>
   </div>
   <div class="col-xl-9 col-md-8 max_height">
@@ -22,23 +23,17 @@
         <div class="col-md-6">
           <div class="row">
             <label class="col-4">Mã chỉ tiêu:</label>
-            <nz-input-group class="col-6" [nzSuffix]="suffixIconSearch">
+            <nz-input-group class="col-6" [nzPrefix]="iconSearch">
               <input type="text" nz-input placeholder="Nhập mã nhân viên" />
             </nz-input-group>
-            <ng-template #suffixIconSearch>
-              <span nz-icon nzType="search"></span>
-            </ng-template>
           </div>
         </div>
         <div class="col-md-6">
           <div class="row">
             <label class="col-4">Tên đơn vị:</label>
-            <nz-input-group class="col-6" [nzSuffix]="suffixIconSearch">
+            <nz-input-group class="col-6" [nzPrefix]="iconSearch">
               <input type="text" nz-input placeholder="Nhập tên nhân viên" />
             </nz-input-group>
-            <ng-template #suffixIconSearch>
-              <span nz-icon nzType="search"></span>
-            </ng-template>
           </div>
         </div>
       </div>
@@ -46,23 +41,18 @@
         <div class="col-md-6">
           <div class="row">
             <label class="col-4">Mã đơn vị:</label>
-            <nz-input-group class="col-6" [nzSuffix]="suffixIconSearch">
+            <nz-input-group class="col-6" [nzPrefix]="iconSearch">
               <input type="text" nz-input placeholder="Nhập mã nhân viên" />
             </nz-input-group>
-            <ng-template #suffixIconSearch>
-              <span nz-icon nzType="search"></span>
-            </ng-template>
           </div>
         </div>
         <div class="col-md-6">
           <div class="row">
             <label class="col-4">Tên đơn vị:</label>
-            <nz-input-group class="col-6" [nzSuffix]="suffixIconSearch">
+            <nz-input-group class="col-6" [nzPrefix]="iconSearch">
               <input type="text" nz-input placeholder="Nhập tên nhân viên" />
             </nz-input-group>
-            <ng-template #suffixIconSearch>
-              <span nz-icon nzType="search"></span>
-            </ng-template>
+
           </div>
         </div>
       </div>
@@ -80,6 +70,9 @@
         <span nz-icon nzType="search" nzTheme="outline"></span>Tìm kiếm
       </button>
     </nz-card>
+    <ng-template #iconSearch>
+      <span nz-icon nzType="search"></span>
+    </ng-template>
     <nz-card class="">
       <div class="justify-content-between d-flex mb-2">
         <span><strong>Danh sách nhân viên</strong></span>
@@ -112,7 +105,6 @@
           [loadingDataTable]="loadingTable"
           (onEditItem)="editUser($event)"
           scrollX="700px"
-          [isFilter]="true"
         ></vss-ui-table>
         <vss-ui-pagination
           [pageSize]="paging.pageSize"

@@ -9,6 +9,7 @@ import {
   VssLoadingService,
 } from '@viettel-vss-base/vss-ui';
 import { NzModalService, NzModalRef } from 'ng-zorro-antd/modal';
+import {NzMessageService} from "ng-zorro-antd/message";
 
 
 @Component({
@@ -50,7 +51,8 @@ export class StaffAddComponent extends BaseListComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private nzModalService: NzModalService,
-    private modal: NzModalRef
+    private modal: NzModalRef,
+    private message: NzMessageService
   ) {
     super();
   }
@@ -68,6 +70,8 @@ export class StaffAddComponent extends BaseListComponent implements OnInit {
       nzOnOk: () => {
         console.log(this.myForm);
         this.destroyModal();
+        this.message.success('Thêm mới thành công!');
+
       },
     });
   }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {BaseListComponent, ColumnType, TableColum} from "@viettel-vss-base/vss-ui";
+import {BaseListComponent, ColumnType, TableColum, TreeNodeOptionsModel} from "@viettel-vss-base/vss-ui";
 import {NzModalService} from "ng-zorro-antd/modal";
 import {
   DepartmentAddStaffComponent
@@ -15,6 +15,30 @@ import {
 })
 export class CompanyTargetsTreeComponent extends BaseListComponent implements OnInit
 {
+  nodes: TreeNodeOptionsModel[] = [
+    {
+      title: 'Cây đơn vị cấp 1',
+      key: '1',
+      children: [
+        {
+          title: 'Cây đơn vị cấp 2',
+          key: '1',
+          children: [],
+        },
+        {
+          title: 'Cây đơn vị cấp 2.2',
+          key: '1',
+          children: [
+            {
+              title: 'Cây đơn vị cấp 3',
+              key: '1',
+              children: [],
+            },
+          ],
+        },
+      ],
+    },
+  ];
   col: TableColum[] = [
     {
       id: 1,
@@ -102,6 +126,11 @@ export class CompanyTargetsTreeComponent extends BaseListComponent implements On
   }
 
   ngOnInit(): void {}
+
+  onClickTreeRole(event: any) {}
+  openModelUpdate() {}
+  deleteRoleGroup() {}
+  openModelCopy() {}
   editUser(event: Event) {}
   addStaff() {
     this.nzModalService
@@ -109,7 +138,7 @@ export class CompanyTargetsTreeComponent extends BaseListComponent implements On
         nzTitle: 'Thêm mới nhân viên',
         nzContent: TargetsAddComponent,
         nzWidth: '80%',
-        nzMaskClosable: false,
+        nzMaskClosable: true,
         nzFooter: null,
         nzCentered: true,
         nzComponentParams: {

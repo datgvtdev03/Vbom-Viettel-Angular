@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder} from "@angular/forms";
 import {NzModalRef, NzModalService} from "ng-zorro-antd/modal";
 import {BaseListComponent, TValidators} from "@viettel-vss-base/vss-ui";
+import {NzMessageService} from "ng-zorro-antd/message";
 
 @Component({
   selector: 'vbom-department-add',
@@ -25,7 +26,8 @@ export class DepartmentAddComponent extends BaseListComponent implements OnInit 
   constructor(
     private formBuilder: FormBuilder,
     private nzModalService: NzModalService,
-    private modal: NzModalRef
+    private modal: NzModalRef,
+    private message: NzMessageService
   ) {
     super();
   }
@@ -43,6 +45,8 @@ export class DepartmentAddComponent extends BaseListComponent implements OnInit 
       nzOnOk: () => {
         console.log(this.myForm);
         this.destroyModal();
+        this.message.success('Thêm mới thành công!');
+
       },
     });
   }

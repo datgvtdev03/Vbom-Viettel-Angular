@@ -4,7 +4,7 @@ import {
   ColumnType,
   SettingTableDynamic,
   TableColum,
-  TableComponent,
+  TableComponent, TreeNodeOptionsModel,
   VssLoadingService,
 } from '@viettel-vss-base/vss-ui';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -17,6 +17,7 @@ import {
 import {
   DepartmentAddComponent
 } from "@vbomApp/modules/categoty-company/component/company-department/department-add/department-add.component";
+import {NzMessageService} from "ng-zorro-antd/message";
 
 @Component({
   selector: 'vbom-company-department',
@@ -25,8 +26,42 @@ import {
 })
 export class CompanyDepartmentComponent
   extends BaseListComponent
-  implements OnInit
-{
+  implements OnInit {
+  checkedNodes = [];
+  nodes: TreeNodeOptionsModel[] = [
+    {
+      title: 'Cây đơn vị cấp 1',
+      key: '1',
+      children: [
+        {
+          title: 'Cây đơn vị cấp 2',
+          key: '2',
+          children: [],
+        },
+        {
+          title: 'Cây đơn vị cấp 2.2',
+          key: '3',
+          children: [
+            {
+              title: 'Cây đơn vị cấp 3',
+              key: '4',
+              children: [],
+            },
+            {
+              title: 'Cây đơn vị cấp 3.2',
+              key: '5',
+              children: [],
+            },
+          ],
+        },
+        {
+          title: 'Cây đơn vị cấp 2.3',
+          key: '6',
+          children: [],
+        },
+      ],
+    },
+  ];
   col: TableColum[] = [
     {
       id: 1,
@@ -141,19 +176,45 @@ export class CompanyDepartmentComponent
   };
   listOfData: any[] = [];
 
-  constructor(private nzModalService: NzModalService) {
+  constructor(private nzModalService: NzModalService,
+              private message: NzMessageService) {
     super();
   }
 
   ngOnInit(): void {}
+  onClickTreeRole(event: any) {}
+  openModelUpdate(event: any) {
+      console.log(event)
+  }
+  deleteRoleGroup(event: any) {
+      console.log(event)
+  }
+  openModelCopy(event: any) {
+      console.log(event)
+  }
   editUser(event: Event) {}
+  deleteTree() {
+    this.nzModalService.confirm({
+      nzTitle: 'Xác nhận',
+      nzContent: 'Thêm mới nhân viên?',
+      nzOkText: 'Đồng ý',
+      nzCancelText: 'Hủy',
+      nzOnOk: () => {
+        console.log(this.checkedNodes);
+        this.message.success('Xóa thành công!');
+      },
+    });
+  }
+  checkedTree(event:any){
+    this.checkedNodes = event.keys;
+  }
   addStaff() {
     this.nzModalService
       .create({
         nzTitle: 'Thêm mới nhân viên',
         nzContent: DepartmentAddStaffComponent,
         nzWidth: '80%',
-        nzMaskClosable: false,
+        nzMaskClosable: true,
         nzFooter: null,
         nzCentered: true,
         nzComponentParams: {
@@ -172,7 +233,7 @@ export class CompanyDepartmentComponent
         nzTitle: 'Thêm mới nhân viên',
         nzContent: DepartmentAddComponent,
         nzWidth: '80%',
-        nzMaskClosable: false,
+        nzMaskClosable: true,
         nzFooter: null,
         nzCentered: true,
         nzComponentParams: {

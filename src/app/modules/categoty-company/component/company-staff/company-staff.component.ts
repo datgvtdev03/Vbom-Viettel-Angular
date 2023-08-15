@@ -187,7 +187,7 @@ export class CompanyStaffComponent extends BaseListComponent implements OnInit {
         nzTitle: 'Sửa thông tin nhân viên',
         nzContent: StaffAddComponent,
         nzWidth: '80%',
-        nzMaskClosable: false,
+        nzMaskClosable: true,
         nzFooter: null,
         nzCentered: true,
         nzComponentParams: {
