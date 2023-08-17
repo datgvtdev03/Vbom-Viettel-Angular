@@ -3,10 +3,10 @@ import {BaseListComponent, ColumnType, TableColum, TreeNodeOptionsModel} from "@
 import {NzModalService} from "ng-zorro-antd/modal";
 import {
   DepartmentAddStaffComponent
-} from "@vbomApp/modules/categoty-company/component/company-department/department-add-staff/department-add-staff";
+} from "@vbomApp/modules/category-company/component/company-department/department-add-staff/department-add-staff";
 import {
   TargetsAddComponent
-} from "@vbomApp/modules/categoty-company/component/company-targets-tree/targets-add/targets-add.component";
+} from "@vbomApp/modules/category-company/component/company-targets-tree/targets-add/targets-add.component";
 
 @Component({
   selector: 'vbom-company-targets-tree',

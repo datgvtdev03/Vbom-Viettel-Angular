@@ -10,13 +10,13 @@ import {
 import { NzModalService } from 'ng-zorro-antd/modal';
 import {
   StaffAddComponent
-} from "@vbomApp/modules/categoty-company/component/company-staff/staff-add/staff-add.component";
+} from "@vbomApp/modules/category-company/component/company-staff/staff-add/staff-add.component";
 import {
   DepartmentAddStaffComponent
-} from "@vbomApp/modules/categoty-company/component/company-department/department-add-staff/department-add-staff";
+} from "@vbomApp/modules/category-company/component/company-department/department-add-staff/department-add-staff";
 import {
   DepartmentAddComponent
-} from "@vbomApp/modules/categoty-company/component/company-department/department-add/department-add.component";
+} from "@vbomApp/modules/category-company/component/company-department/department-add/department-add.component";
 import {NzMessageService} from "ng-zorro-antd/message";
 
 @Component({

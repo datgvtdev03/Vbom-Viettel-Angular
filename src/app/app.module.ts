@@ -29,7 +29,7 @@ import {environment} from '@vbomEnv/environment';
 import {VbomPermissionServiceService} from '@vbomApp/service/vbom-permission-service.service';
 import {AuthService} from '@vbomApp/service/auth.service';
 import {Router} from '@angular/router';
-import {CompanyModule} from "@vbomApp/modules/categoty-company/company.module";
+import {CompanyModule} from "@vbomApp/modules/category-company/company.module";
 registerLocaleData(vi);
 
 function initializeKeycloak(keycloak: KeycloakService): () => Promise<any> {

@@ -29,19 +29,19 @@ import {
 } from '@vbomApp/modules/admin/permission-data-management/permission-data-management.component';
 import {FunctionManagementComponent} from '@vbomApp/modules/admin/function-management/function-management.component';
 import {FunctionListComponent} from '@vbomApp/modules/admin/function-management/function-list/function-list.component';
-import {CompanyStaffComponent} from "@vbomApp/modules/categoty-company/component/company-staff/company-staff.component";
+import {CompanyStaffComponent} from "@vbomApp/modules/category-company/component/company-staff/company-staff.component";
 import {
   CompanyDepartmentComponent
-} from "@vbomApp/modules/categoty-company/component/company-department/company-department.component";
+} from "@vbomApp/modules/category-company/component/company-department/company-department.component";
 import {
   CompanyMandatesComponent
-} from "@vbomApp/modules/categoty-company/component/company-mandates/company-mandates.component";
+} from "@vbomApp/modules/category-company/component/company-mandates/company-mandates.component";
 import {
   CompanySystemComponent
-} from "@vbomApp/modules/categoty-company/component/company-system/company-system.component";
+} from "@vbomApp/modules/category-company/component/company-system/company-system.component";
 import {
   CompanyTargetsTreeComponent
-} from "@vbomApp/modules/categoty-company/component/company-targets-tree/company-targets-tree";
+} from "@vbomApp/modules/category-company/component/company-targets-tree/company-targets-tree";
 
 @Component({
   selector: 'vbom-layout-full',

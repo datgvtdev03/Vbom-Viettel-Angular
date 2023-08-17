@@ -28,7 +28,7 @@ const routes: Routes = [
       {
         path: 'company',
         loadChildren: () =>
-          import('./modules/categoty-company/company.module').then(
+          import('./modules/category-company/company.module').then(
             (m) => m.CompanyModule
           ),
       },

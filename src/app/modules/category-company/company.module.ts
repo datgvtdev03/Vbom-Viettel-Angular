@@ -25,16 +25,16 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import {
   DepartmentAddStaffComponent
-} from "@vbomApp/modules/categoty-company/component/company-department/department-add-staff/department-add-staff";
+} from "@vbomApp/modules/category-company/component/company-department/department-add-staff/department-add-staff";
 import {
   DepartmentAddComponent
-} from "@vbomApp/modules/categoty-company/component/company-department/department-add/department-add.component";
+} from "@vbomApp/modules/category-company/component/company-department/department-add/department-add.component";
 import {
   CompanyTargetsTreeComponent
-} from "@vbomApp/modules/categoty-company/component/company-targets-tree/company-targets-tree";
+} from "@vbomApp/modules/category-company/component/company-targets-tree/company-targets-tree";
 import {
   TargetsAddComponent
-} from "@vbomApp/modules/categoty-company/component/company-targets-tree/targets-add/targets-add.component";
+} from "@vbomApp/modules/category-company/component/company-targets-tree/targets-add/targets-add.component";
 
 @NgModule({
   declarations: [
